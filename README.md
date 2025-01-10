@@ -1,115 +1,84 @@
 <div align="center">
-  <img src="docs/assets/banner.png" alt="Job Bodyguard Banner" width="100%">
-  <br/>
-  
-  # 🕵️ Job Bodyguard (TF2 Spy Edition)
+  <img src="icon.png" alt="Job Bodyguard Logo" width="128"/>
+  <h1>Job Bodyguard</h1>
+  <p><em>Your intelligent companion for navigating the job application process.</em></p>
 
-  *Because applying for jobs is a battlefield. Watch your back.*
-
-  [![](https://img.shields.io/badge/Chrome-Extension-orange?style=for-the-badge&logo=googlechrome)](https://chrome.google.com/webstore) 
-  [![](https://img.shields.io/badge/React-18.x-blue?style=for-the-badge&logo=react)](https://reactjs.org/) 
-  [![](https://img.shields.io/badge/Vite-Plugin-purple?style=for-the-badge&logo=vite)](https://vitejs.dev/)
-
+  <a href="https://chrome.google.com/webstore">
+    <img src="https://img.shields.io/badge/Chrome-Extension-orange?style=for-the-badge&logo=googlechrome" alt="Chrome Extension"/>
+  </a>
+  <a href="https://reactjs.org/">
+    <img src="https://img.shields.io/badge/React-18.x-blue?style=for-the-badge&logo=react" alt="React 18"/>
+  </a>
+  <a href="https://vitejs.dev/">
+    <img src="https://img.shields.io/badge/Vite-Plugin-purple?style=for-the-badge&logo=vite" alt="Vite"/>
+  </a>
 </div>
 
 ---
 
-## 🎩 Overview
-**Job Bodyguard** is a next-generation intelligence-gathering Chrome Extension designed to watch your back in the treacherous world of job hunting. Guided by the stealthy aesthetics of the Team Fortress 2 Spy, this tool tracks, analyzes, and guards your job applications from the shadows—detecting red flags, checking salary gaps, and running deep AI analysis on every vacancy you visit.
+**Job Bodyguard** is a Chrome Extension designed to intelligently track, analyze, and guard your job applications. It analyzes job descriptions directly from standard job boards, providing valuable insights into potential red flags, missing skill requirements, and salary estimations.
 
-## 🌟 Key Features
+> **Disclaimer**: I know many of you used and loved this application. However, it is time for me to move on, and I will no longer be actively maintaining it. I am keeping it open-source, so feel free to fork the repository, propose modifications, and I may merge them. If you encounter any critical bugs or issues, feel free to open an issue and I will do my best to address them.
 
-### 🕵️‍♂️ Intelligence Extraction (Parsers)
-- **Multi-Platform Support**: Seamlessly pulls details, company stats, and locations from top networks like *LinkedIn*, *Indeed*, and *HH*.
-- **Ghost Detection**: Automatically highlights missing data—is the salary hidden? Are they asking for 10 years of experience in a 2-year-old framework?
+## Key Features
 
-### 🔬 AI-Powered Interrogation
-- **Gap Analysis**: Cross-references your personal intel (resume) with the target's demands (job description) to highlight missing skills.
-- **Red Flag Sniffer**: Detects suspicious corporate phrasing cleverly disguised as "fast-paced environments."
-- **Verdict System**: Gets a quick `Strong Apply`, `Apply`, `Caution`, or `Skip` ruling from your loyal agent.
-
-### 🎭 Stealthy & Stylish Dashboard UI
-- **Spy Aesthetic**: Fully customized dark-mode, high-contrast menus built with bespoke **SpyIcons** and **TF2 typography**.
-- **Intuitive Status Tracking**: Sort targets into folders—`Saved`, `Applied`, `Interview`, `Offer`, or `Rejected` directly from the UI dropdowns.
-- **Tactical Floating Banner**: Sits quietly on career pages, allowing you to run 1-click reconnaissance without alerting the enemy.
-
-### 💼 Secure Intel
-- **One-Click Export**: Extracts all your gathered intelligence securely via JSON format directly from your Dashboard.
-- **Persistent Storage**: Syncs your hitlist locally and directly via Chrome Storage. 
+- **Automated Data Extraction**: Pulls details, company statistics, and locations seamlessly from job boards like LinkedIn, Indeed, and HH.
+- **Gap Analysis**: Correlates your resume against the job description to highlight missing skills or gaps in experience.
+- **Red Flag Detection**: Identifies potentially concerning phrases in job descriptions (e.g., hidden salaries, unrealistic requirements).
+- **Application Tracking**: Easily organize your applications directly from the browser into categories such as Saved, Applied, Interview, Offer, or Rejected.
+- **Local & Secure Data**: Standard data extraction operates statically, and syncs your tracking data securely using Chrome Storage.
 
 ---
 
-## 🛠️ Installation (Classified Intel)
+## Interface Overview
 
-1. Clone the repository to your local secure terminal.
+### Extension Action Menu
+Provides immediate access to your most recent targets and triggers rapid page analysis.
+<img src="screenshots/popup.png" alt="Popup Action Menu" width="400"/>
+
+### On-Page Analysis Hover
+A smooth floating element that natively integrates onto job postings, providing an immediate summary of the role.
+<img src="screenshots/POP on the job page.png" alt="Floating on-page analysis" width="800"/>
+
+### Thorough Sidepanel
+Unlocks in-depth structural analysis. Review pros and cons of an employer and ascertain how well your profile aligns with expectations.
+<img src="screenshots/sidepanel.png" alt="Detailed Sidepanel Analysis" width="400"/>
+
+### Master Tracking Dashboard
+Review your aggregate application statuses, effectively rendering out your progress efficiently.
+<img src="screenshots/dashboard.png" alt="Tracking Dashboard" width="800"/>
+
+### System Settings
+Setup your personalized extraction configurations, API limits, prompt overrides, and CV content directly within the configuration menu.
+<img src="screenshots/settings.png" alt="Settings Configuration" width="800"/>
+
+---
+
+## Installation Guide
+
+1. Clone the repository to your local machine:
    ```bash
    git clone https://github.com/Astoriel/Job-Bodyguard.git
-   cd "Job-Bodyguard"
+   cd Job-Bodyguard
    ```
-2. Install the required armaments (dependencies).
+2. Install the necessary dependencies:
    ```bash
    pnpm install
    ```
-3. Run the tactical build sequence.
+3. Run the application build sequence:
    ```bash
    pnpm run build
    ```
-4. Load the compiled extension into Chrome.
-   - Go to `chrome://extensions/`
-   - Enable **Developer mode** in the top right.
+4. Load the compiled extension into Google Chrome:
+   - Navigate to `chrome://extensions/`
+   - Enable **Developer mode** in the top right corner.
    - Click **Load unpacked** and select the `apps/extension/dist` folder.
 
----
+## Technologies
 
-## 📸 UI & Reconnaissance (Screenshots)
-
-> *To be fully appreciated, you must see it in action.*
-> *The interface tries to be as simple as possible, minimizing cognitive load and providing only the most crucial intel when you need it.*
-
-<div align="center">
-  <details>
-    <summary><b>🕵️ Click to Reveal: The Stealth Popup</b></summary>
-    <br/>
-    <p><i>The popup menu provides quick access to your most recent targets and current page analysis.</i></p>
-    <img src="docs/assets/popup-preview.png" alt="Popup Overview" width="400" style="border: 2px solid #b8383b;">
-  </details>
-
-  <details>
-    <summary><b>🗄️ Click to Reveal: The Hitlist Dashboard</b></summary>
-    <br/>
-    <p><i>Manage your saved applications, track statuses, and securely export data.</i></p>
-    <img src="docs/assets/dash-preview.png" alt="Dashboard Saved Jobs" width="800" style="border: 2px solid #5885a2;">
-  </details>
-
-  <details>
-    <summary><b>🎯 Click to Reveal: Dashboard Filters</b></summary>
-    <br/>
-    <p><i>Easily filter your targets (e.g., Interviews, Offers) with a single click.</i></p>
-    <img src="docs/assets/dash-filters.png" alt="Dashboard Filters" width="800" style="border: 2px solid #5885a2;">
-  </details>
-
-  <details>
-    <summary><b>⚙️ Click to Reveal: Agent Settings</b></summary>
-    <br/>
-    <p><i>Configure your AI provider, upload your resume for gap analysis, and tweak your system prompts.</i></p>
-    <img src="docs/assets/settings-preview.png" alt="Settings Overview" width="800" style="border: 2px solid #e28743;">
-  </details>
-</div>
-
----
-
-## 📡 Technologies Deployed
 - **React.js & TypeScript**
-- **Vite** for rapid hot-reloading espionage development.
-- **Custom Fonts Integration** (`TF2Build.ttf`, `Hypnotize Icons Master.ttf`).
+- **Vite**
 
----
+## License
 
-<div align="center">
-  
-  *“Gentlemen... synchronize your death watches.”* 
-  
-  **Stay Frosty. Happy Hunting.**
-  
-  [Report Bugs 🐛](https://github.com/Astoriel/OyVitalikVeredator/issues) • [Request Reinforcements 🚀](https://github.com/Astoriel/OyVitalikVeredator/pulls)
-</div>
+This project is open-source. See the repository for exact licensing terms. If you encounter an issue, please feel free to report bugs or file pull requests via GitHub issues.
