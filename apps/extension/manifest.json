@@ -1,0 +1,43 @@
+{
+    "manifest_version": 3,
+    "name": "Job Bodyguard",
+    "version": "0.1.0",
+    "description": "Decode job postings, find red flags, tailor your resume",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "sidePanel"
+    ],
+    "host_permissions": [
+        "https://www.linkedin.com/jobs/*",
+        "https://linkedin.com/jobs/*",
+        "https://www.indeed.com/*",
+        "https://indeed.com/*"
+    ],
+    "background": {
+        "service_worker": "src/background/index.ts",
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.linkedin.com/jobs/view/*",
+                "https://www.linkedin.com/jobs/search/*",
+                "https://www.indeed.com/viewjob*",
+                "https://www.indeed.com/rc/clk/*",
+                "https://www.indeed.com/jobs*"
+            ],
+            "js": [
+                "src/content/index.tsx"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "side_panel": {
+        "default_path": "sidepanel.html"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Job Bodyguard"
+    }
+}
