@@ -1,0 +1,441 @@
+@import '../styles/spy-theme.css';
+
+/* Settings Page Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--spy-dark);
+    color: var(--spy-text-light);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: var(--spy-orange);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--spy-orange-dim);
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+}
+
+.settings-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    border-bottom: 2px solid var(--spy-orange);
+    background-color: var(--spy-dark);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.settings-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.settings-logo span:first-child {
+    font-size: 24px;
+}
+
+.settings-logo-text {
+    font-family: var(--font-display);
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--spy-text-light);
+    letter-spacing: 1px;
+}
+
+.settings-subtitle {
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--spy-orange);
+    opacity: 0.8;
+}
+
+.settings-back-btn {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--spy-text-light);
+    padding: 8px 14px;
+    border: 1px solid var(--spy-border);
+    transition: all 0.15s;
+    text-transform: uppercase;
+}
+
+.settings-back-btn:hover {
+    background-color: var(--spy-border);
+    color: var(--spy-orange);
+}
+
+/* Body */
+.settings-body {
+    flex: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 24px 24px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Section */
+.settings-section {
+    background-color: var(--spy-dark-card);
+    border: 2px solid var(--spy-border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* Angled corner effect from spy theme */
+    clip-path: polygon(0 0,
+            100% 0,
+            100% calc(100% - 20px),
+            calc(100% - 20px) 100%,
+            0 100%);
+}
+
+.settings-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--spy-orange);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+
+.settings-section:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.settings-section--danger {
+    border-color: var(--spy-red);
+}
+
+.settings-section--danger::after {
+    background: var(--spy-red);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--spy-orange);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.section-title--danger {
+    color: var(--spy-red);
+}
+
+.section-desc {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--spy-text-light);
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Fields */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--spy-text-light);
+    text-transform: uppercase;
+}
+
+.input {
+    padding: 10px 14px;
+    background-color: var(--spy-dark);
+    border: 1px solid var(--spy-border);
+    color: var(--spy-text-light);
+    font-size: 14px;
+    font-family: monospace;
+    width: 100%;
+    transition: all 0.2s;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--spy-orange);
+    box-shadow: 0 0 0 2px rgba(255, 157, 0, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.textarea {
+    padding: 10px 14px;
+    background-color: var(--spy-dark);
+    border: 1px solid var(--spy-border);
+    color: var(--spy-text-light);
+    font-size: 13px;
+    font-family: monospace;
+    width: 100%;
+    resize: vertical;
+    transition: all 0.2s;
+    line-height: 1.5;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: var(--spy-orange);
+    box-shadow: 0 0 0 2px rgba(255, 157, 0, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.input-row {
+    display: flex;
+    gap: 8px;
+}
+
+.input-row .input {
+    flex: 1;
+}
+
+.icon-btn {
+    padding: 0 12px;
+    background-color: var(--spy-dark);
+    border: 1px solid var(--spy-border);
+    color: var(--spy-text-light);
+    font-size: 16px;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.icon-btn:hover {
+    background-color: var(--spy-border);
+    color: var(--spy-orange);
+}
+
+.field-hint {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--spy-orange);
+    opacity: 0.8;
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+/* Radio group */
+.radio-group {
+    display: flex;
+    gap: 8px;
+}
+
+.radio-btn {
+    flex: 1;
+    padding: 8px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    text-transform: uppercase;
+    background-color: var(--spy-dark);
+    border: 1px solid var(--spy-border);
+    color: var(--spy-text-light);
+    opacity: 0.6;
+    transition: all 0.15s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.radio-btn:hover {
+    opacity: 1;
+    border-color: var(--spy-orange);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.radio-btn.active {
+    opacity: 1;
+    background-color: rgba(255, 157, 0, 0.1);
+    border-color: var(--spy-orange);
+    color: var(--spy-orange);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Upload */
+.upload-area {
+    position: relative;
+}
+
+.file-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.upload-label {
+    display: block;
+    padding: 16px;
+    border: 2px dashed var(--spy-border);
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--spy-text-light);
+    opacity: 0.8;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: var(--spy-dark);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.upload-label:hover {
+    opacity: 1;
+    border-color: var(--spy-orange);
+    color: var(--spy-orange);
+    background-color: rgba(255, 157, 0, 0.05);
+}
+
+/* Danger zone */
+.danger-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.danger-title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--spy-text-light);
+    margin-bottom: 2px;
+}
+
+.danger-desc {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--spy-text-light);
+    opacity: 0.7;
+}
+
+.danger-btn {
+    padding: 8px 16px;
+    background-color: transparent;
+    border: 2px solid var(--spy-red);
+    color: var(--spy-red);
+    font-family: var(--font-display);
+    font-size: 13px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.15s;
+    box-shadow: 0 2px 6px rgba(184, 56, 59, 0.15);
+}
+
+.danger-btn:hover {
+    background-color: var(--spy-red);
+    color: var(--spy-text-light);
+    box-shadow: 0 4px 10px rgba(184, 56, 59, 0.25);
+    transform: translate(-1px, -1px);
+}
+
+.danger-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Save button */
+.settings-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 24px;
+    background-color: var(--spy-dark);
+    border-top: 2px solid var(--spy-border);
+    display: flex;
+    justify-content: flex-end;
+    max-width: 680px;
+    margin: 0 auto;
+    width: 100%;
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.save-btn {
+    background-color: var(--spy-orange);
+    color: var(--spy-dark);
+    border: none;
+    padding: 12px 32px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    min-width: 180px;
+    box-shadow: 0 4px 15px rgba(255, 157, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    /* Clip-path for tf2 spy theme button */
+    clip-path: polygon(0 0,
+            100% 0,
+            100% calc(100% - 10px),
+            calc(100% - 10px) 100%,
+            0 100%);
+}
+
+.save-btn:hover {
+    background-color: var(--spy-orange-dim);
+    transform: translate(-1px, -1px);
+    box-shadow: 0 6px 20px rgba(255, 157, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.save-btn:disabled {
+    opacity: 0.6;
+    transform: none;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.save-btn--success {
+    background-color: var(--spy-blue);
+    color: var(--spy-text-light);
+    box-shadow: 0 4px 15px rgba(88, 133, 162, 0.4);
+}
+
+.save-btn--success:hover {
+    background-color: #4a748f;
+    box-shadow: 0 6px 20px rgba(88, 133, 162, 0.5);
+}
+
+.save-btn--error {
+    background-color: var(--spy-red);
+    color: var(--spy-text-light);
+    box-shadow: 0 4px 15px rgba(184, 56, 59, 0.4);
+}

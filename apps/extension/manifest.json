@@ -1,31 +1,34 @@
 {
     "manifest_version": 3,
     "name": "Job Bodyguard",
-    "version": "0.1.0",
-    "description": "Decode job postings, find red flags, tailor your resume",
+    "version": "0.2.0",
+    "description": "Decode job postings, find red flags, tailor your resume. No server needed.",
     "permissions": [
         "activeTab",
         "storage",
-        "sidePanel"
+        "sidePanel",
+        "tabs"
     ],
     "host_permissions": [
-        "https://www.linkedin.com/jobs/*",
-        "https://linkedin.com/jobs/*",
-        "https://www.indeed.com/*",
-        "https://indeed.com/*"
+        "https://*.linkedin.com/*",
+        "https://linkedin.com/*",
+        "https://*.indeed.com/*",
+        "https://indeed.com/*",
+        "https://hh.ru/*",
+        "https://*.hh.ru/*",
+        "https://api.openai.com/*",
+        "https://api.anthropic.com/*"
     ],
     "background": {
-        "service_worker": "src/background/index.ts",
-        "type": "module"
+        "service_worker": "src/background/index.ts"
     },
     "content_scripts": [
         {
             "matches": [
-                "https://www.linkedin.com/jobs/view/*",
-                "https://www.linkedin.com/jobs/search/*",
-                "https://www.indeed.com/viewjob*",
-                "https://www.indeed.com/rc/clk/*",
-                "https://www.indeed.com/jobs*"
+                "https://*.linkedin.com/jobs/*",
+                "https://*.indeed.com/*",
+                "https://hh.ru/vacancy/*",
+                "https://*.hh.ru/vacancy/*"
             ],
             "js": [
                 "src/content/index.tsx"
@@ -39,5 +42,16 @@
     "action": {
         "default_popup": "popup.html",
         "default_title": "Job Bodyguard"
-    }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "dashboard.html",
+                "settings.html"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
 }

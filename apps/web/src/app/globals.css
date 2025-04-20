@@ -1,16 +1,51 @@
+@font-face {
+    font-family: 'TF2Build';
+    src: url('/fonts/TF2Build.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TF2';
+    src: url('/fonts/TF2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TF2secondary';
+    src: url('/fonts/TF2secondary.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
-    --background: #0a0a0b;
-    --foreground: #e4e4e7;
-    --primary: #6366f1;
-    --primary-foreground: #ffffff;
-    --secondary: #27272a;
-    --accent: #8b5cf6;
-    --muted: #71717a;
-    --border: rgba(255, 255, 255, 0.1);
-    --card: #18181b;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
+    /* TF2 / Spy Theme Colors - Shifted to Brown */
+    --background: #2a1e16;
+    --card: #3a2a1f;
+    --foreground: #f5e7de;
+    --primary: #d27d2d;
+    --primary-dim: #a85e1b;
+    --primary-foreground: #2a1e16;
+    --secondary: #4a3525;
+    --accent: #b8383b;
+    --muted: #a69b91;
+    --border: #563f2e;
+    --success: #5885a2;
+    /* Using the spy-blue for success/info to fit theme */
+    --warning: #cc7d00;
+    --danger: #b8383b;
+
+    /* Web Theme variables alias */
+    --spy-orange: var(--primary);
+    --spy-dark: var(--background);
+    --spy-dark-card: var(--card);
+    --spy-border: var(--border);
+
+    /* Fonts */
+    --font-thick: 'TF2Build', Impact, sans-serif;
+    --font-medium: 'TF2', 'Arial Black', sans-serif;
+    --font-thin: 'TF2secondary', 'Courier New', monospace;
 }
 
 * {
@@ -22,9 +57,31 @@
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: var(--font-thin);
+    font-size: 16px;
     line-height: 1.6;
     min-height: 100vh;
+}
+
+h1,
+h2,
+.hero-title,
+.stat-value {
+    font-family: var(--font-thick);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+}
+
+h3,
+h4,
+h5,
+h6,
+.dashboard-header h1 {
+    font-family: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary);
 }
 
 a {
@@ -60,47 +117,67 @@ button {
     color: var(--danger);
 }
 
-/* Buttons */
+/* Buttons mimicking Spy Theme */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.2s ease;
+    font-family: var(--font-medium);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: none;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    background-color: var(--primary-dim);
+    transform: translate(-1px, -1px);
 }
 
 .btn-secondary {
-    background: var(--secondary);
+    background-color: var(--secondary);
     color: var(--foreground);
-    border: 1px solid var(--border);
+    border: none;
 }
 
 .btn-secondary:hover {
-    background: #3f3f46;
+    background-color: var(--border);
+    transform: translate(-1px, -1px);
 }
 
-/* Card */
-.card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+/* Card mimicking Spy Theme */
+.card,
+.feature-card,
+.stat-card {
+    background-color: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 0;
     padding: 24px;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+}
+
+.card::after,
+.feature-card::after,
+.stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--primary);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
 }
 
 /* Landing Page */
@@ -110,7 +187,8 @@ button {
 
 .nav {
     padding: 20px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    background: var(--background);
 }
 
 .nav-content {
@@ -126,16 +204,14 @@ button {
 }
 
 .logo-icon {
-    font-size: 28px;
+    font-size: 32px;
 }
 
 .logo-text {
-    font-size: 20px;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: var(--font-thick);
+    font-size: 26px;
+    color: var(--primary);
+    text-transform: uppercase;
 }
 
 .hero {
@@ -149,24 +225,16 @@ button {
 }
 
 .hero-title {
-    font-size: 56px;
-    font-weight: 800;
-    line-height: 1.1;
+    font-size: 64px;
     margin-bottom: 24px;
-}
-
-.gradient-text {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    text-shadow: 2px 2px 0 var(--border);
 }
 
 .hero-subtitle {
-    font-size: 20px;
-    color: var(--muted);
+    font-family: var(--font-medium);
+    font-size: 22px;
+    color: var(--foreground);
     margin-bottom: 32px;
-    line-height: 1.6;
 }
 
 .hero-buttons {
@@ -182,33 +250,23 @@ button {
 }
 
 .feature-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s;
 }
 
 .feature-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .feature-icon {
     font-size: 48px;
     margin-bottom: 16px;
+    color: var(--primary);
 }
 
 .feature-card h3 {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 24px;
     margin-bottom: 8px;
-}
-
-.feature-card p {
-    font-size: 14px;
-    color: var(--muted);
 }
 
 /* Dashboard */
@@ -218,7 +276,7 @@ button {
 
 .dashboard-nav {
     padding: 16px 24px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
     background: var(--card);
 }
 
@@ -231,11 +289,13 @@ button {
 }
 
 .dashboard-nav .logo-icon {
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .dashboard-nav .logo-text {
-    font-size: 18px;
+    font-family: var(--font-thick);
+    font-size: 22px;
+    color: var(--primary);
 }
 
 .nav-links {
@@ -244,15 +304,16 @@ button {
 }
 
 .nav-link {
+    font-family: var(--font-medium);
     color: var(--muted);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
     transition: color 0.2s;
 }
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--foreground);
+    color: var(--primary);
 }
 
 .dashboard-content {
@@ -266,9 +327,9 @@ button {
 }
 
 .dashboard-header h1 {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 32px;
     margin-bottom: 8px;
+    color: var(--foreground);
 }
 
 .stats-grid {
@@ -278,20 +339,18 @@ button {
     margin-bottom: 24px;
 }
 
-.stat-card {
-    text-align: center;
-    padding: 20px;
-}
-
 .stat-value {
-    font-size: 32px;
-    font-weight: 700;
+    font-size: 48px;
+    color: var(--primary);
+    text-shadow: 2px 2px 0 var(--border);
 }
 
 .stat-label {
-    font-size: 13px;
+    font-family: var(--font-medium);
+    font-size: 16px;
+    text-transform: uppercase;
     color: var(--muted);
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
 .applications-table {
@@ -301,33 +360,65 @@ button {
 
 .table-header {
     padding: 20px 24px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    background-color: var(--secondary);
 }
 
 .table-header h3 {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 20px;
 }
 
 .empty-state {
     text-align: center;
     padding: 60px 24px;
+    font-family: var(--font-medium);
 }
 
 .empty-icon {
     font-size: 48px;
     margin-bottom: 16px;
+    color: var(--primary);
     opacity: 0.5;
 }
 
 .empty-state h3 {
-    font-size: 18px;
+    font-size: 22px;
     margin-bottom: 8px;
+    color: var(--foreground);
+}
+
+/* TF2 Specific additions */
+.spy-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--border);
+    color: var(--foreground);
+    font-family: var(--font-thin);
+    font-size: 14px;
+    margin-right: 8px;
+    border-left: 3px solid var(--primary);
+}
+
+.spy-stamp {
+    border: 3px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-thick);
+    font-size: 1.5em;
+    padding: 4px 8px;
+    transform: rotate(-5deg);
+    display: inline-block;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+.spy-stamp.approved {
+    border-color: var(--success);
+    color: var(--success);
 }
 
 @media (max-width: 768px) {
     .hero-title {
-        font-size: 36px;
+        font-size: 42px;
     }
 
     .hero-buttons {

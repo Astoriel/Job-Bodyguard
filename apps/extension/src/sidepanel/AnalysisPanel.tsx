@@ -7,6 +7,8 @@ interface AnalysisPanelProps {
     onTailor: () => void;
     onSave: () => void;
     onReanalyze: () => void;
+    saveStatus?: 'idle' | 'saving' | 'saved' | 'error';
+    saveButtonContent?: React.ReactNode;
 }
 
 export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
@@ -15,6 +17,8 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
     onTailor,
     onSave,
     onReanalyze,
+    saveStatus = 'idle',
+    saveButtonContent = <><span className="spy-icon">&#x0446;</span> Save & Apply</>,
 }) => {
     const getVerdictColor = () => {
         switch (result.verdict) {
@@ -30,7 +34,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
         switch (result.verdict) {
             case 'strong_apply': return '🚀';
             case 'apply': return '✅';
-            case 'caution': return '⚠️';
+            case 'caution': return <span className="spy-icon">&#x0053;</span>;
             case 'skip': return '🚫';
             default: return '❓';
         }
@@ -120,7 +124,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
             {/* Gap Analysis */}
             {result.gapAnalysis.missingSkills.length > 0 && (
                 <section className="section section--gap">
-                    <h3>📊 Resume Gap Analysis</h3>
+                    <h3><span className="spy-icon">&#x01D1;</span> Resume Gap Analysis</h3>
                     <div className="gap-content">
                         <div className="gap-group">
                             <h4>Missing Skills</h4>
@@ -161,11 +165,15 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
                     ✂️ Tailor My Resume
                 </button>
                 <div className="action-row">
-                    <button onClick={onSave} className="btn btn--secondary">
-                        💾 Save & Apply
+                    <button
+                        onClick={onSave}
+                        className={`btn btn--secondary ${saveStatus === 'saved' ? 'btn--saved' : ''} ${saveStatus === 'error' ? 'btn--error' : ''}`}
+                        disabled={saveStatus === 'saving' || saveStatus === 'saved'}
+                    >
+                        {saveButtonContent}
                     </button>
                     <button onClick={onReanalyze} className="btn btn--ghost">
-                        🔄 Re-analyze
+                        <span className="spy-icon">ŕ</span> Re-analyze
                     </button>
                 </div>
             </section>

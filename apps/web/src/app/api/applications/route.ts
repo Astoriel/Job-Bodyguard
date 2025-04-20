@@ -8,7 +8,7 @@ const CreateApplicationSchema = z.object({
     jobTitle: z.string(),
     companyName: z.string(),
     location: z.string().optional(),
-    platform: z.enum(['linkedin', 'indeed', 'other']),
+    platform: z.enum(['linkedin', 'indeed', 'hh.ru', 'other']),
     jobData: z.object({}).passthrough().optional(),
     analysisResult: z.object({}).passthrough().optional(),
     resumeSnapshot: z.string().optional(),

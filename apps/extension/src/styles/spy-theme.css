@@ -1,0 +1,146 @@
+@font-face {
+    font-family: 'TF2Build';
+    src: url('./fonts/TF2Build.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TF2';
+    src: url('./fonts/TF2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TF2secondary';
+    src: url('./fonts/TF2secondary.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SpyIcons';
+    src: url('./fonts/Hypnotize Icons Master.ttf') format('truetype');
+}
+
+.spy-icon {
+    font-family: 'SpyIcons', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    line-height: 1;
+}
+
+:root {
+    /* TF2 / Spy Theme Colors */
+    --spy-orange: #ff9d00;
+    --spy-orange-dim: #cc7d00;
+    --spy-red: #b8383b;
+    --spy-blue: #5885a2;
+    --spy-dark: #231f20;
+    --spy-dark-card: #2e282a;
+    --spy-paper: #f5e7de;
+    --spy-text-light: #f4ece4;
+    --spy-text-dark: #332d2c;
+    --spy-border: #4a413f;
+
+    /* Typography */
+    --font-display: 'TF2Build', 'Impact', 'Arial Black', sans-serif;
+    --font-heading: 'TF2', 'Arial Black', sans-serif;
+    --font-body: 'TF2secondary', 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: var(--spy-dark);
+    color: var(--spy-text-light);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--spy-orange);
+}
+
+.spy-card {
+    background-color: var(--spy-dark-card);
+    border: 2px solid var(--spy-border);
+    padding: 16px;
+    margin: 8px;
+    position: relative;
+    /* Angled corner effect */
+    clip-path: polygon(0 0,
+            100% 0,
+            100% calc(100% - 20px),
+            calc(100% - 20px) 100%,
+            0 100%);
+}
+
+.spy-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--spy-orange);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+
+.spy-button {
+    background-color: var(--spy-orange);
+    color: var(--spy-dark);
+    border: none;
+    padding: 8px 16px;
+    font-family: var(--font-display);
+    font-size: 1.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0,
+            100% 0,
+            100% calc(100% - 10px),
+            calc(100% - 10px) 100%,
+            0 100%);
+}
+
+.spy-button:hover {
+    background-color: var(--spy-orange-dim);
+    transform: translate(-1px, -1px);
+}
+
+.spy-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--spy-border);
+    color: var(--spy-text-light);
+    font-size: 0.8em;
+    margin-right: 4px;
+    border-left: 3px solid var(--spy-orange);
+}
+
+.spy-stamp {
+    border: 3px solid var(--spy-red);
+    color: var(--spy-red);
+    font-family: var(--font-display);
+    font-size: 1.5em;
+    padding: 4px 8px;
+    transform: rotate(-5deg);
+    display: inline-block;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+.spy-stamp.approved {
+    border-color: var(--spy-blue);
+    color: var(--spy-blue);
+}
