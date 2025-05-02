@@ -1,0 +1,431 @@
+@font-face {
+    font-family: 'TF2Build';
+    src: url('/fonts/TF2Build.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TF2';
+    src: url('/fonts/TF2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TF2secondary';
+    src: url('/fonts/TF2secondary.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    /* TF2 / Spy Theme Colors - Shifted to Brown */
+    --background: #2a1e16;
+    --card: #3a2a1f;
+    --foreground: #f5e7de;
+    --primary: #d27d2d;
+    --primary-dim: #a85e1b;
+    --primary-foreground: #2a1e16;
+    --secondary: #4a3525;
+    --accent: #b8383b;
+    --muted: #a69b91;
+    --border: #563f2e;
+    --success: #5885a2;
+    /* Using the spy-blue for success/info to fit theme */
+    --warning: #cc7d00;
+    --danger: #b8383b;
+
+    /* Web Theme variables alias */
+    --spy-orange: var(--primary);
+    --spy-dark: var(--background);
+    --spy-dark-card: var(--card);
+    --spy-border: var(--border);
+
+    /* Fonts */
+    --font-thick: 'TF2Build', Impact, sans-serif;
+    --font-medium: 'TF2', 'Arial Black', sans-serif;
+    --font-thin: 'TF2secondary', 'Courier New', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-thin);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+.hero-title,
+.stat-value {
+    font-family: var(--font-thick);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+}
+
+h3,
+h4,
+h5,
+h6,
+.dashboard-header h1 {
+    font-family: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Utility classes */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.text-muted {
+    color: var(--muted);
+}
+
+.text-success {
+    color: var(--success);
+}
+
+.text-warning {
+    color: var(--warning);
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+/* Buttons mimicking Spy Theme */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: none;
+    font-family: var(--font-medium);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dim);
+    transform: translate(-1px, -1px);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: var(--foreground);
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: var(--border);
+    transform: translate(-1px, -1px);
+}
+
+/* Card mimicking Spy Theme */
+.card,
+.feature-card,
+.stat-card {
+    background-color: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 0;
+    padding: 24px;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+}
+
+.card::after,
+.feature-card::after,
+.stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--primary);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+
+/* Landing Page */
+.landing {
+    min-height: 100vh;
+}
+
+.nav {
+    padding: 20px 0;
+    border-bottom: 2px solid var(--border);
+    background: var(--background);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 32px;
+}
+
+.logo-text {
+    font-family: var(--font-thick);
+    font-size: 26px;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.hero {
+    padding: 80px 0;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+}
+
+.hero-title {
+    font-size: 64px;
+    margin-bottom: 24px;
+    text-shadow: 2px 2px 0 var(--border);
+}
+
+.hero-subtitle {
+    font-family: var(--font-medium);
+    font-size: 22px;
+    color: var(--foreground);
+    margin-bottom: 32px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+.feature-card {
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+}
+
+.feature-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+/* Dashboard */
+.dashboard {
+    min-height: 100vh;
+}
+
+.dashboard-nav {
+    padding: 16px 24px;
+    border-bottom: 2px solid var(--border);
+    background: var(--card);
+}
+
+.dashboard-nav .nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-nav .logo-icon {
+    font-size: 28px;
+}
+
+.dashboard-nav .logo-text {
+    font-family: var(--font-thick);
+    font-size: 22px;
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-link {
+    font-family: var(--font-medium);
+    color: var(--muted);
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary);
+}
+
+.dashboard-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.dashboard-header {
+    margin-bottom: 32px;
+}
+
+.dashboard-header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: var(--foreground);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-value {
+    font-size: 48px;
+    color: var(--primary);
+    text-shadow: 2px 2px 0 var(--border);
+}
+
+.stat-label {
+    font-family: var(--font-medium);
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+}
+
+.applications-table {
+    padding: 0;
+    overflow: hidden;
+}
+
+.table-header {
+    padding: 20px 24px;
+    border-bottom: 2px solid var(--border);
+    background-color: var(--secondary);
+}
+
+.table-header h3 {
+    font-size: 20px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 24px;
+    font-family: var(--font-medium);
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: var(--primary);
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--foreground);
+}
+
+/* TF2 Specific additions */
+.spy-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--border);
+    color: var(--foreground);
+    font-family: var(--font-thin);
+    font-size: 14px;
+    margin-right: 8px;
+    border-left: 3px solid var(--primary);
+}
+
+.spy-stamp {
+    border: 3px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-thick);
+    font-size: 1.5em;
+    padding: 4px 8px;
+    transform: rotate(-5deg);
+    display: inline-block;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+.spy-stamp.approved {
+    border-color: var(--success);
+    color: var(--success);
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 42px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
