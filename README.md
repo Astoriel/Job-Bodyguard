@@ -61,23 +61,38 @@
 
 ---
 
-## 📸 Reconnaissance (Screenshots)
+## 📸 UI & Reconnaissance (Screenshots)
 
 > *To be fully appreciated, you must see it in action.*
+> *The interface tries to be as simple as possible, minimizing cognitive load and providing only the most crucial intel when you need it.*
 
 <div align="center">
   <details>
     <summary><b>🕵️ Click to Reveal: The Stealth Popup</b></summary>
     <br/>
     <p><i>The popup menu provides quick access to your most recent targets and current page analysis.</i></p>
-    <img src="docs/assets/popup-preview.png" alt="Popup Placeholder" width="600" style="border: 2px solid #b8383b;">
+    <img src="docs/assets/popup-preview.png" alt="Popup Overview" width="400" style="border: 2px solid #b8383b;">
   </details>
 
   <details>
     <summary><b>🗄️ Click to Reveal: The Hitlist Dashboard</b></summary>
     <br/>
     <p><i>Manage your saved applications, track statuses, and securely export data.</i></p>
-    <img src="docs/assets/dash-preview.png" alt="Dashboard Placeholder" width="800" style="border: 2px solid #5885a2;">
+    <img src="docs/assets/dash-preview.png" alt="Dashboard Saved Jobs" width="800" style="border: 2px solid #5885a2;">
+  </details>
+
+  <details>
+    <summary><b>🎯 Click to Reveal: Dashboard Filters</b></summary>
+    <br/>
+    <p><i>Easily filter your targets (e.g., Interviews, Offers) with a single click.</i></p>
+    <img src="docs/assets/dash-filters.png" alt="Dashboard Filters" width="800" style="border: 2px solid #5885a2;">
+  </details>
+
+  <details>
+    <summary><b>⚙️ Click to Reveal: Agent Settings</b></summary>
+    <br/>
+    <p><i>Configure your AI provider, upload your resume for gap analysis, and tweak your system prompts.</i></p>
+    <img src="docs/assets/settings-preview.png" alt="Settings Overview" width="800" style="border: 2px solid #e28743;">
   </details>
 </div>
 

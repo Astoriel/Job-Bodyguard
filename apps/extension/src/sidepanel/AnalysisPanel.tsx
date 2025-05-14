@@ -173,7 +173,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
                         {saveButtonContent}
                     </button>
                     <button onClick={onReanalyze} className="btn btn--ghost">
-                        <span className="spy-icon">ŕ</span> Re-analyze
+                        <span className="spy-icon">&#x0155;</span> Re-analyze
                     </button>
                 </div>
             </section>

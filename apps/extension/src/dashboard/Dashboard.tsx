@@ -116,7 +116,7 @@ export const Dashboard: React.FC = () => {
                 </div>
                 <div className="dash-actions">
                     <button onClick={handleExport} className="dash-btn dash-btn-secondary">
-                        <span className="spy-icon">&#x043F;</span> Export JSON
+                        <span className="spy-icon">&#x00FB;</span> Export JSON
                     </button>
                     <a href={chrome.runtime.getURL('settings.html')} className="dash-btn dash-btn-ghost">
                         <span className="spy-icon">&#x054D;</span> Settings

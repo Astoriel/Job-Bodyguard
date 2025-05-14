@@ -108,8 +108,8 @@ export const Settings: React.FC = () => {
                                         className={`radio-btn ${settings.apiProvider === p ? 'active' : ''}`}
                                         onClick={() => setSettings(prev => ({ ...prev, apiProvider: p as ExtensionSettings['apiProvider'] }))}
                                     >
-                                        {p === 'openai' && '🟢 OpenAI'}
-                                        {p === 'anthropic' && '🟣 Anthropic'}
+                                        {p === 'openai' && '⚪ OpenAI'}
+                                        {p === 'anthropic' && '🟠 Anthropic'}
                                         {p === 'custom' && '🔧 Custom'}
                                     </button>
                                 ))}

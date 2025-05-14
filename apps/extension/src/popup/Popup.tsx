@@ -186,7 +186,7 @@ export const Popup: React.FC = () => {
                     <span className="spy-icon popup-logo-icon">&#x0669;</span>
                     <span className="popup-logo-text">Job Bodyguard</span>
                 </div>
-                <button className="btn btn--icon" onClick={handleRefresh} title="Refresh"><span className="spy-icon">ŕ</span></button>
+                <button className="btn btn--icon" onClick={handleRefresh} title="Refresh"><span className="spy-icon">&#x0155;</span></button>
             </header>
 
             <main className="popup-content">
@@ -261,7 +261,7 @@ export const Popup: React.FC = () => {
                             <button onClick={handleRefresh}
                                 className="btn btn--secondary btn--small"
                                 style={{ marginTop: 8 }}>
-                                <span className="spy-icon">ŕ</span> Retry
+                                <span className="spy-icon">&#x0155;</span> Retry
                             </button>
                         )}
                     </div>
