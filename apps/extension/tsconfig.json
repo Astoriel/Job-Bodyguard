@@ -1,0 +1,23 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "jsx": "react-jsx",
+        "noEmit": true,
+        "types": [
+            "chrome"
+        ]
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "references": [
+        {
+            "path": "../../packages/types"
+        },
+        {
+            "path": "../../packages/parsers"
+        }
+    ]
+}

@@ -1,0 +1,63 @@
+{
+    "manifest_version": 3,
+    "name": "Job Bodyguard",
+    "version": "0.2.0",
+    "description": "Decode job postings, find red flags, tailor your resume. No server needed.",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "sidePanel",
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://*.linkedin.com/*",
+        "https://linkedin.com/*",
+        "https://*.indeed.com/*",
+        "https://indeed.com/*",
+        "https://hh.ru/*",
+        "https://*.hh.ru/*",
+        "https://api.openai.com/*",
+        "https://api.anthropic.com/*"
+    ],
+    "background": {
+        "service_worker": "src/background/index.ts"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*.linkedin.com/jobs/*",
+                "https://*.indeed.com/*",
+                "https://hh.ru/vacancy/*",
+                "https://*.hh.ru/vacancy/*"
+            ],
+            "js": [
+                "src/content/index.tsx"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "side_panel": {
+        "default_path": "sidepanel.html"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Job Bodyguard",
+        "default_icon": "icons/icon.png"
+    },
+    "icons": {
+        "16": "icons/icon.png",
+        "48": "icons/icon.png",
+        "128": "icons/icon.png"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "dashboard.html",
+                "settings.html"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}
