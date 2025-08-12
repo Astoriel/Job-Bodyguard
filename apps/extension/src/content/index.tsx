@@ -1,0 +1,445 @@
+/**
+ * Content Script — Job Bodyguard
+ *
+ * Key design decisions vs previous version:
+ *  1. Direct chrome.storage writes (no background needed for currentJob)
+ *     → Works even when service worker is sleeping
+ *  2. waitForElement() before parsing instead of fixed timeouts
+ *     → Handles slow LinkedIn/Indeed DOM rendering
+ *  3. Three SPA-detection strategies: pushState patch, interval poll, MutationObserver
+ *  4. Banner re-injection if removed by the host page
+ */
+
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { getParserForUrl, FlagAnalyzer } from '@job-bodyguard/parsers';
+import type { JobData } from '@job-bodyguard/types';
+import { FloatingBanner } from './FloatingBanner';
+
+// ─── DOM helper ───────────────────────────────────────────────
+/**
+ * Wait until a CSS selector matches something in the DOM.
+ * Much more reliable than fixed setTimeout for SPA pages.
+ */
+function waitForElement(selector: string, timeoutMs = 8000): Promise<Element | null> {
+  const existing = document.querySelector(selector);
+  if (existing) return Promise.resolve(existing);
+
+  return new Promise((resolve) => {
+    const deadline = Date.now() + timeoutMs;
+    const obs = new MutationObserver(() => {
+      const el = document.querySelector(selector);
+      if (el) { obs.disconnect(); resolve(el); }
+      else if (Date.now() > deadline) { obs.disconnect(); resolve(null); }
+    });
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+    // Safety net
+    setTimeout(() => { obs.disconnect(); resolve(document.querySelector(selector)); }, timeoutMs);
+  });
+}
+
+// ─── State tracking ──────────────────────────────────────────
+let _lastJobKey = getJobKey(window.location.href);
+let _parseInProgress = false;
+
+function getJobKey(url: string): string {
+  try {
+    const u = new URL(url);
+    // Indeed split-pane: vjk=XXX
+    // Indeed direct page: jk=XXX  (e.g. /viewjob?jk=XXX or /m/viewjob?jk=XXX)
+    // LinkedIn: currentJobId=XXX
+    // hh.ru: /vacancy/XXX
+    return (
+      u.searchParams.get('vjk') ||
+      u.searchParams.get('jk') ||
+      u.searchParams.get('currentJobId') ||
+      u.pathname.match(/\/vacancy\/(\d+)/)?.[1] ||
+      url
+    );
+  } catch {
+    return url;
+  }
+}
+
+// ─── Guard against duplicate injection ───────────────────────
+if (!(window as any).__JBG_LOADED__) {
+  (window as any).__JBG_LOADED__ = true;
+  init();
+}
+
+function init() {
+  console.log('[JBG] Content script loaded on:', window.location.href);
+
+  // 1. Patch history for SPA navigation
+  patchHistory();
+  window.addEventListener('popstate', () => void handleNavChange());
+
+  // 2. Polling fallback (800ms) — catches anything pushState misses
+  setInterval(() => {
+    const key = getJobKey(window.location.href);
+    if (key !== _lastJobKey) void handleNavChange();
+  }, 800);
+
+  // 3. Listen for popup requesting a re-parse (e.g. stale data detected)
+  chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+    if (msg?.type === 'JBG_TRIGGER_PARSE') {
+      console.log('[JBG] 🔁 Re-parse requested by popup on:', window.location.href);
+      _parseInProgress = false; // reset guard so re-parse can run
+      void tryParsePage();
+      sendResponse({ ok: true });
+    }
+    return false;
+  });
+
+  // 3. Initial parse
+  void tryParsePage();
+}
+
+// ─── Navigation handling ──────────────────────────────────────
+function patchHistory() {
+  for (const method of ['pushState', 'replaceState'] as const) {
+    const orig = history[method].bind(history);
+    (history as any)[method] = (...args: Parameters<typeof history.pushState>) => {
+      orig(...args);
+      void handleNavChange();
+    };
+  }
+}
+
+async function handleNavChange() {
+  const newKey = getJobKey(window.location.href);
+  if (newKey === _lastJobKey) return;
+  console.log('[JBG] Navigation:', _lastJobKey, '→', newKey);
+  _lastJobKey = newKey;
+
+  // Immediately clear stale data so popup shows "reading..."
+  await clearCurrentJob();
+  removeBanner();
+  void tryParsePage();
+}
+
+// ─── Storage (direct — no background needed) ─────────────────
+async function clearCurrentJob(): Promise<void> {
+  return new Promise((resolve) => {
+    chrome.storage.local.remove('currentJob', resolve);
+  });
+}
+
+async function storeCurrentJob(job: JobData): Promise<void> {
+  return new Promise((resolve) => {
+    chrome.storage.local.set({ currentJob: job }, resolve);
+  });
+}
+
+// ─── Parsing ─────────────────────────────────────────────────
+// Title selectors shared across parsers (used to wait for DOM readiness)
+const TITLE_WAIT_SELECTORS = [
+  // LinkedIn (logged-in view)
+  '.job-details-jobs-unified-top-card__job-title',
+  '.jobs-unified-top-card__job-title',
+  'h1.t-24',
+  // LinkedIn (public / guest view — ca., fr., uk. subdomains)
+  'h1.top-card-layout__title',
+  '.top-card-layout__title',
+  // Indeed
+  '[data-testid="jobsearch-JobInfoHeader-title"]',
+  'h1.jobsearch-JobInfoHeader-title',
+  // hh.ru
+  '[data-qa="vacancy-title"]',
+  // Universal fallback — any h1 (LinkedIn always has one in job panels)
+  'h1',
+].join(', ');
+
+async function tryParsePage() {
+  if (_parseInProgress) {
+    console.log('[JBG] ⏳ parse already in progress, skipping');
+    return;
+  }
+  _parseInProgress = true;
+
+  try {
+    const url = window.location.href;
+    console.log('[JBG] 🔍 tryParsePage() on:', url);
+
+    const parser = getParserForUrl(url);
+    if (!parser) {
+      console.warn('[JBG] ❌ No parser matched for URL:', url);
+      return;
+    }
+    console.log('[JBG] ✅ Parser found:', parser.platform);
+
+    // Try to parse with retries — more robust than waitForElement on SPAs
+    // that do full-body DOM swaps (LinkedIn) where MutationObserver can miss the swap.
+    const MAX_ATTEMPTS = 8;
+    const RETRY_INTERVAL = 2000; // ms
+
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      // Small delay on first attempt to let the initial render settle
+      if (attempt === 1) await new Promise(r => setTimeout(r, 600));
+
+      console.log(`[JBG] 📦 Parse attempt ${attempt}/${MAX_ATTEMPTS}...`);
+
+      // Quick sanity check — log what's in the DOM right now
+      const h1Text = document.querySelector('h1')?.textContent?.trim().slice(0, 80);
+      const knownTitle = document.querySelector(TITLE_WAIT_SELECTORS)?.textContent?.trim().slice(0, 80);
+      console.log(`[JBG]   h1="${h1Text ?? 'null'}"  knownTitle="${knownTitle ?? 'null'}"`);
+
+      let jobData = await parser.extractJobData(document);
+      console.log('[JBG] 📦 Extracted:', {
+        title: jobData.title,
+        company: jobData.company,
+        location: jobData.location,
+        descLen: jobData.description?.length,
+      });
+
+      if (!jobData.title && !jobData.company) {
+        if (attempt < MAX_ATTEMPTS) {
+          console.warn(`[JBG] ⚠️ Empty result — retrying in ${RETRY_INTERVAL}ms...`);
+          await new Promise(r => setTimeout(r, RETRY_INTERVAL));
+          continue;
+        } else {
+          console.error('[JBG] ❌ All attempts exhausted, giving up.');
+          return;
+        }
+      }
+
+      if (!jobData.title) console.warn('[JBG] ⚠️ title empty but company found, continuing');
+      if (!jobData.company) console.warn('[JBG] ⚠️ company empty but title found, continuing');
+
+      const flagAnalyzer = new FlagAnalyzer();
+      const { redFlags, greenFlags } = flagAnalyzer.analyze(jobData.description);
+      jobData = {
+        ...jobData,
+        redFlags: [...jobData.redFlags, ...redFlags],
+        greenFlags: [...jobData.greenFlags, ...greenFlags],
+      };
+
+      console.log('[JBG] ✅ Storing job:', jobData.title, '@', jobData.company);
+      await storeCurrentJob(jobData);
+      console.log('[JBG] ✅ Stored to chrome.storage.local.currentJob');
+
+      chrome.runtime.sendMessage(
+        { type: 'JOB_DATA_EXTRACTED', payload: jobData, timestamp: Date.now() },
+        () => { void chrome.runtime.lastError; }
+      );
+
+      injectBanner(jobData);
+      return; // success
+    }
+
+  } catch (err) {
+    console.error('[JBG] 💥 Parse exception:', err);
+  } finally {
+    _parseInProgress = false;
+  }
+}
+
+// ─── Floating Banner ─────────────────────────────────────────
+let _bannerRoot: ReturnType<typeof createRoot> | null = null;
+let _bannerContainer: HTMLElement | null = null;
+
+function removeBanner() {
+  _bannerContainer?.remove();
+  _bannerContainer = null;
+  _bannerRoot = null;
+}
+
+function injectBanner(jobData: JobData) {
+  removeBanner();
+
+  const container = document.createElement('div');
+  container.id = 'job-bodyguard-banner';
+  // Inject on <html> not <body> so page React can't accidentally unmount us
+  document.documentElement.appendChild(container);
+  _bannerContainer = container;
+
+  const shadow = container.attachShadow({ mode: 'open' });
+  const style = document.createElement('style');
+  style.textContent = BANNER_CSS;
+  const mount = document.createElement('div');
+  shadow.appendChild(style);
+  shadow.appendChild(mount);
+
+  _bannerRoot = createRoot(mount);
+
+  // Watch if LinkedIn/Indeed removes our banner and re-inject
+  startBannerGuard(jobData);
+
+  renderBanner(jobData);
+}
+
+function renderBanner(jobData: JobData) {
+  if (!_bannerRoot) return;
+  _bannerRoot.render(
+    <FloatingBanner
+      jobData={jobData}
+      onAnalyze={() => {
+        chrome.runtime.sendMessage({ type: 'OPEN_SIDEPANEL', payload: null, timestamp: Date.now() });
+      }}
+      onSave={(onResult) => {
+        chrome.runtime.sendMessage(
+          { type: 'SAVE_TO_DASHBOARD', payload: jobData, timestamp: Date.now() },
+          (res) => { onResult(!chrome.runtime.lastError && res?.success); }
+        );
+      }}
+      onClose={removeBanner}
+    />
+  );
+}
+
+// Re-inject banner if the host page removes it
+let _bannerGuard: ReturnType<typeof setInterval> | null = null;
+function startBannerGuard(jobData: JobData) {
+  if (_bannerGuard) clearInterval(_bannerGuard);
+  _bannerGuard = setInterval(() => {
+    if (_bannerContainer && !document.documentElement.contains(_bannerContainer)) {
+      console.log('[JBG] Banner removed by page, re-injecting...');
+      injectBanner(jobData);
+    }
+  }, 1500);
+}
+
+// ─── Banner Styles ────────────────────────────────────────────
+const BANNER_CSS = `
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :host {
+    /* Minimalist Theme Colors */
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --accent-orange: #f97316;
+    
+    /* Typography */
+    --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    all: initial;
+  }
+
+  .banner {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    font-family: var(--font-body);
+    max-width: 700px;
+    animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    color: var(--text-main);
+    pointer-events: all;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  @keyframes slideIn {
+    from { transform: translateY(-20px) scale(0.95); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  .banner__logo { 
+    color: var(--text-main); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+
+  .banner__flags {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background-color: #f3f4f6;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    white-space: nowrap;
+    border-radius: 9999px;
+  }
+
+  .badge--age   { background-color: #f3f4f6; color: #4b5563; }
+  .badge--old   { background-color: #fef3c7; color: #b45309; }
+  .badge--sal   { background-color: #dcfce7; color: #166534; }
+  .badge--red   { background-color: #fee2e2; color: #b91c1c; }
+  .badge--green { background-color: #dcfce7; color: #166534; }
+
+  .banner__actions { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    flex-shrink: 0; 
+  }
+
+  .btn {
+    display: inline-flex; 
+    align-items: center; 
+    gap: 6px;
+    padding: 8px 16px; 
+    border: none; 
+    border-radius: 9999px;
+    font-size: 13px; 
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease; 
+    white-space: nowrap; 
+    font-family: var(--font-display);
+  }
+
+  .btn--analyze {
+    background-color: var(--text-main);
+    color: #fff;
+  }
+  .btn--analyze:hover { 
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .btn--save {
+    background-color: #f3f4f6;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+  }
+  .btn--save:hover:not(:disabled) { 
+    background-color: #e5e7eb; 
+  }
+  .btn--save:disabled { cursor: not-allowed; opacity: 0.5; }
+  .btn--save.saving { opacity: 0.6; }
+  .btn--save.saved  { background-color: #dcfce7; color: #166534; border-color: #bbf7d0; }
+  .btn--save.error  { background-color: #fee2e2; color: #b91c1c; border-color: #fecaca; }
+
+  .btn--close {
+    background: transparent; 
+    color: var(--text-muted);
+    padding: 8px; 
+    font-size: 16px; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    line-height: 1;
+    transition: all 0.2s ease;
+  }
+  .btn--close:hover { 
+    color: var(--text-main); 
+    background-color: #f3f4f6;
+  }
+`;
