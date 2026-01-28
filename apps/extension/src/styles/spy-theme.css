@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Minimalist Theme Colors */
+    --accent-orange: #f97316;
+    --accent-lime: #84cc16;
+    
+    /* Light Mode */
+    --bg-main: #f3f4f6; /* Very light gray */
+    --bg-card: #ffffff; /* Pure white */
+    --text-main: #111827; /* Near black */
+    --text-muted: #6b7280; /* Gray */
+    --border-color: #e5e7eb; /* Light border */
+
+    /* Typography */
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--text-main);
+    margin: 0;
+}
+
+/* Global Utility Classes */
+.spy-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 16px;
+    margin: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+}
+
+.spy-button {
+    background-color: var(--text-main);
+    color: var(--bg-card);
+    border: none;
+    border-radius: 9999px; /* Pill shape */
+    padding: 10px 20px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.spy-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.spy-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.spy-stamp {
+    border: 2px solid var(--text-muted);
+    color: var(--text-muted);
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 4px 8px;
+    font-size: 0.9em;
+    display: inline-block;
+}
+
+.spy-stamp.approved {
+    border-color: var(--accent-lime);
+    color: var(--accent-lime);
+}
