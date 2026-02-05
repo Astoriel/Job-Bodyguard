@@ -1,0 +1,15 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="640" rx="30" fill="#F5EFE4"/>
+  <rect x="80" y="44" width="800" height="86" rx="24" fill="#FFFFFF" stroke="#D9DED8"/>
+  <rect x="114" y="78" width="172" height="16" rx="8" fill="#1F2A37"/>
+  <rect x="80" y="156" width="800" height="420" rx="28" fill="#FFFFFF" stroke="#D9DED8"/>
+  <rect x="118" y="198" width="724" height="112" rx="24" fill="#F8FAFC"/>
+  <rect x="148" y="230" width="124" height="16" rx="8" fill="#1F2A37"/>
+  <rect x="148" y="266" width="548" height="18" rx="9" fill="#FFFFFF" stroke="#DDE5EB"/>
+  <rect x="118" y="334" width="724" height="112" rx="24" fill="#F8FAFC"/>
+  <rect x="148" y="366" width="146" height="16" rx="8" fill="#1F2A37"/>
+  <rect x="148" y="402" width="548" height="18" rx="9" fill="#FFFFFF" stroke="#DDE5EB"/>
+  <rect x="118" y="470" width="724" height="72" rx="24" fill="#FFF4E9"/>
+  <rect x="664" y="492" width="146" height="28" rx="14" fill="#A83D3D"/>
+  <text x="118" y="112" fill="#556170" font-family="Arial, sans-serif" font-size="20">Settings preview</text>
+</svg>

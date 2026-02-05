@@ -1,0 +1,37 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="36" fill="#F7F2E8"/>
+  <circle cx="188" cy="144" r="124" fill="#D7EEE9"/>
+  <circle cx="1036" cy="86" r="110" fill="#F6DEC2"/>
+  <rect x="72" y="82" width="450" height="556" rx="30" fill="#FFFFFF" stroke="#D8DDD8"/>
+  <rect x="104" y="120" width="120" height="14" rx="7" fill="#0F766E" fill-opacity="0.15"/>
+  <rect x="104" y="154" width="300" height="52" rx="18" fill="#1F2A37"/>
+  <rect x="104" y="226" width="222" height="14" rx="7" fill="#8091A3"/>
+  <rect x="104" y="266" width="140" height="40" rx="20" fill="#E8F4F1"/>
+  <rect x="258" y="266" width="134" height="40" rx="20" fill="#EEF2F6"/>
+  <rect x="406" y="266" width="84" height="40" rx="20" fill="#FFF1E4"/>
+  <rect x="104" y="336" width="386" height="110" rx="22" fill="#F8FAFC" stroke="#E1E7EE"/>
+  <rect x="128" y="366" width="134" height="16" rx="8" fill="#1F2A37"/>
+  <rect x="128" y="396" width="220" height="12" rx="6" fill="#8A97A6"/>
+  <rect x="128" y="462" width="160" height="44" rx="22" fill="#0F766E"/>
+  <rect x="304" y="462" width="154" height="44" rx="22" fill="#F2F5F8" stroke="#D8E0E6"/>
+  <rect x="104" y="540" width="386" height="58" rx="20" fill="#F2F5F8"/>
+  <rect x="552" y="122" width="576" height="280" rx="32" fill="#FFFFFF" stroke="#D8DDD8"/>
+  <rect x="588" y="164" width="160" height="16" rx="8" fill="#1F2A37"/>
+  <rect x="776" y="162" width="102" height="34" rx="17" fill="#EAF5F1"/>
+  <rect x="894" y="162" width="100" height="34" rx="17" fill="#FFF2E7"/>
+  <rect x="588" y="218" width="220" height="144" rx="24" fill="#F8FAFC" stroke="#E1E7EE"/>
+  <rect x="612" y="244" width="110" height="14" rx="7" fill="#0F766E" fill-opacity="0.18"/>
+  <rect x="612" y="276" width="160" height="36" rx="18" fill="#0F766E"/>
+  <rect x="836" y="218" width="256" height="144" rx="24" fill="#F8FAFC" stroke="#E1E7EE"/>
+  <rect x="860" y="244" width="122" height="14" rx="7" fill="#D97706" fill-opacity="0.24"/>
+  <rect x="860" y="278" width="198" height="12" rx="6" fill="#8A97A6"/>
+  <rect x="860" y="306" width="184" height="12" rx="6" fill="#8A97A6"/>
+  <rect x="552" y="438" width="576" height="202" rx="32" fill="#1F2A37"/>
+  <rect x="588" y="474" width="154" height="18" rx="9" fill="#FFFFFF"/>
+  <rect x="588" y="522" width="188" height="78" rx="24" fill="#2C3A4A"/>
+  <rect x="796" y="522" width="300" height="24" rx="12" fill="#405267"/>
+  <rect x="796" y="562" width="248" height="18" rx="9" fill="#405267"/>
+  <rect x="796" y="596" width="170" height="18" rx="9" fill="#0F766E"/>
+  <text x="104" y="52" fill="#1F2A37" font-family="Arial, sans-serif" font-size="26" font-weight="700">Job Bodyguard</text>
+  <text x="104" y="678" fill="#556170" font-family="Arial, sans-serif" font-size="24">Chrome popup, AI analysis panel, and saved jobs dashboard</text>
+</svg>

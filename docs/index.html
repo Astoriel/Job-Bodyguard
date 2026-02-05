@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Bodyguard</title>
+  <meta name="description" content="Review job postings faster, catch red flags earlier, and tailor your resume with context." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="https://github.com/Astoriel/Job-Bodyguard">
+        <span class="brand-mark">JB</span>
+        <span class="brand-text">Job Bodyguard</span>
+      </a>
+      <nav class="topbar-links">
+        <a href="https://github.com/Astoriel/Job-Bodyguard#installation">Install</a>
+        <a href="https://github.com/Astoriel/Job-Bodyguard/releases">Releases</a>
+        <a class="button button-ghost" href="https://github.com/Astoriel/Job-Bodyguard">View on GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Chrome extension for job search due diligence</p>
+          <h1>See what a job posting is really telling you before you apply.</h1>
+          <p class="lede">
+            Job Bodyguard surfaces hidden salary data, stale listings, suspicious language,
+            and resume gaps directly on LinkedIn, Indeed, and HH.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/Astoriel/Job-Bodyguard/releases">Download latest build</a>
+            <a class="button button-secondary" href="https://github.com/Astoriel/Job-Bodyguard#ui-preview">See UI preview</a>
+          </div>
+          <ul class="hero-points">
+            <li>Passive scan with no backend requirement</li>
+            <li>AI review with your own API key</li>
+            <li>Local dashboard for saved applications</li>
+          </ul>
+        </div>
+        <div class="hero-visual frame">
+          <img src="assets/hero-preview.svg" alt="Job Bodyguard overview" />
+        </div>
+      </section>
+
+      <section class="metrics">
+        <article>
+          <strong>3 sources</strong>
+          <span>LinkedIn, Indeed, HH</span>
+        </article>
+        <article>
+          <strong>1 click</strong>
+          <span>Open analysis from the floating banner</span>
+        </article>
+        <article>
+          <strong>0 servers</strong>
+          <span>User keys stay in Chrome storage</span>
+        </article>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">What the extension covers</p>
+          <h2>Practical signals first</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Page scan</h3>
+            <p>Extracts visible and hidden metadata from job postings without forcing a full dashboard workflow.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Risk review</h3>
+            <p>Summarizes red flags, positive signals, job age, and salary discrepancies in a way you can act on.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Resume fit</h3>
+            <p>Compares your stored resume against the role and suggests targeted adjustments instead of generic advice.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Application tracking</h3>
+            <p>Keeps a simple saved-jobs board with statuses, export support, and a clean local workflow.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block previews">
+        <div class="section-heading">
+          <p class="eyebrow">UI preview</p>
+          <h2>How it looks before installation</h2>
+        </div>
+        <div class="preview-grid">
+          <figure class="frame preview-card">
+            <img src="assets/popup-preview.svg" alt="Popup preview" />
+            <figcaption>Popup with current job summary and saved items.</figcaption>
+          </figure>
+          <figure class="frame preview-card">
+            <img src="assets/analysis-preview.svg" alt="Analysis preview" />
+            <figcaption>Analysis side panel with verdict, fit, and interview questions.</figcaption>
+          </figure>
+          <figure class="frame preview-card preview-card-wide">
+            <img src="assets/dashboard-preview.svg" alt="Dashboard preview" />
+            <figcaption>Saved jobs dashboard with statuses and quick filters.</figcaption>
+          </figure>
+          <figure class="frame preview-card">
+            <img src="assets/settings-preview.svg" alt="Settings preview" />
+            <figcaption>Settings for AI provider, resume upload, and prompt tuning.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section-block install-block">
+        <div class="section-heading">
+          <p class="eyebrow">Install from source</p>
+          <h2>Current distribution model</h2>
+        </div>
+        <ol class="steps">
+          <li>Clone the repository and run `pnpm install`.</li>
+          <li>Build the extension with `pnpm --filter @job-bodyguard/extension build`.</li>
+          <li>Open `chrome://extensions`, enable developer mode, and load `apps/extension/dist`.</li>
+          <li>Optionally download a packaged zip from the GitHub releases page.</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

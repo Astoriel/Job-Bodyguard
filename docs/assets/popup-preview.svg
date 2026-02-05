@@ -1,0 +1,17 @@
+<svg width="760" height="560" viewBox="0 0 760 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="760" height="560" rx="28" fill="#F6F1E7"/>
+  <rect x="164" y="34" width="432" height="492" rx="28" fill="#1F2A37"/>
+  <rect x="194" y="68" width="120" height="18" rx="9" fill="#FFFFFF"/>
+  <rect x="194" y="108" width="372" height="122" rx="22" fill="#2C3A4A"/>
+  <rect x="220" y="138" width="104" height="12" rx="6" fill="#86E0D2"/>
+  <rect x="220" y="166" width="240" height="28" rx="14" fill="#FFFFFF"/>
+  <rect x="194" y="256" width="112" height="34" rx="17" fill="#FFF0DE"/>
+  <rect x="316" y="256" width="104" height="34" rx="17" fill="#EAF5F1"/>
+  <rect x="430" y="256" width="136" height="34" rx="17" fill="#FCE4E4"/>
+  <rect x="194" y="324" width="372" height="66" rx="20" fill="#273545"/>
+  <rect x="220" y="348" width="138" height="18" rx="9" fill="#FFFFFF"/>
+  <rect x="194" y="414" width="372" height="74" rx="20" fill="#273545"/>
+  <rect x="220" y="438" width="172" height="18" rx="9" fill="#FFFFFF"/>
+  <text x="38" y="84" fill="#1F2A37" font-family="Arial, sans-serif" font-size="24" font-weight="700">Popup preview</text>
+  <text x="38" y="120" fill="#556170" font-family="Arial, sans-serif" font-size="18">Current job summary, quick flags, saved list</text>
+</svg>
