@@ -61,18 +61,10 @@ Setup your personalized extraction configurations, API limits, prompt overrides,
    git clone https://github.com/Astoriel/Job-Bodyguard.git
    cd Job-Bodyguard
    ```
-2. Install the necessary dependencies:
-   ```bash
-   pnpm install
-   ```
-3. Run the application build sequence:
-   ```bash
-   pnpm run build
-   ```
-4. Load the compiled extension into Google Chrome:
+2. Load the extension into Google Chrome:
    - Navigate to `chrome://extensions/`
    - Enable **Developer mode** in the top right corner.
-   - Click **Load unpacked** and select the `apps/extension/dist` folder.
+   - Click **Load unpacked** and select the `dist` folder.
 
 ## Technologies
 
