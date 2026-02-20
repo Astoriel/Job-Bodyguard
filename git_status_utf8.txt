@@ -1,0 +1,87 @@
+﻿ M .env.example
+ M .gitignore
+ M README.md
+ M TODO.md
+ M apps/extension/dashboard.html
+ M apps/extension/icons/icon16.svg
+ M apps/extension/manifest.json
+ M apps/extension/package.json
+ M apps/extension/popup.html
+ M apps/extension/scripts/diagnose_server.js
+ M apps/extension/scripts/fix-build.js
+ M apps/extension/settings.html
+ M apps/extension/sidepanel.html
+ M apps/extension/src/background/index.ts
+ M apps/extension/src/content/FloatingBanner.tsx
+ M apps/extension/src/content/index.tsx
+ M apps/extension/src/dashboard/Dashboard.tsx
+ M apps/extension/src/dashboard/dashboard.css
+ M apps/extension/src/popup/Popup.tsx
+ M apps/extension/src/popup/SavedJobsList.tsx
+ M apps/extension/src/popup/styles.css
+ M apps/extension/src/settings/Settings.tsx
+ M apps/extension/src/settings/settings.css
+ M apps/extension/src/sidepanel/AnalysisPanel.tsx
+ M apps/extension/src/sidepanel/SidePanel.tsx
+ M apps/extension/src/sidepanel/styles.css
+ M apps/extension/src/styles/spy-theme.css
+ M apps/extension/tsconfig.json
+ M apps/extension/tsconfig.tsbuildinfo
+ M apps/extension/vite.config.ts
+ M apps/web/next-env.d.ts
+ M apps/web/next.config.mjs
+ M apps/web/package.json
+ M apps/web/src/app/api/analyze/route.ts
+ M apps/web/src/app/api/applications/[id]/route.ts
+ M apps/web/src/app/api/applications/route.ts
+ M apps/web/src/app/api/jobs/route.ts
+ M apps/web/src/app/api/tailor/route.ts
+ M apps/web/src/app/dashboard/page.tsx
+ M apps/web/src/app/globals.css
+ M apps/web/src/app/layout.tsx
+ M apps/web/src/app/page.tsx
+ M apps/web/src/app/settings/page.tsx
+ M apps/web/src/lib/openai/client.ts
+ M apps/web/src/lib/openai/prompts.ts
+ M apps/web/src/lib/supabase/client.ts
+ M apps/web/src/lib/supabase/database.types.ts
+ M apps/web/src/lib/supabase/server.ts
+ M apps/web/tsconfig.json
+ M description.md
+ M package.json
+ M packages/parsers/package.json
+ M packages/parsers/src/BaseParser.ts
+ M packages/parsers/src/FlagAnalyzer.ts
+ M packages/parsers/src/HHParser.ts
+ M packages/parsers/src/IndeedParser.ts
+ M packages/parsers/src/LinkedInParser.test.ts
+ M packages/parsers/src/LinkedInParser.ts
+ M packages/parsers/src/index.ts
+ M packages/parsers/tsconfig.json
+ M packages/parsers/tsconfig.tsbuildinfo
+ M packages/types/package.json
+ M packages/types/src/analysis.ts
+ M packages/types/src/application.ts
+ M packages/types/src/index.ts
+ M packages/types/src/job.ts
+ M packages/types/src/resume.ts
+ M packages/types/tsconfig.json
+ M packages/types/tsconfig.tsbuildinfo
+ M pnpm-lock.yaml
+ M pnpm-workspace.yaml
+ M supabase/schema.sql
+ M supabase/seed.sql
+ M tsconfig.json
+ M turbo.json
+?? .github/
+?? apps/extension/icons/icon.png
+?? apps/extension/replace_icons.js
+?? docs/.nojekyll
+?? docs/assets/analysis-preview.svg
+?? docs/assets/dashboard-preview.svg
+?? docs/assets/hero-preview.svg
+?? docs/assets/popup-preview.svg
+?? docs/assets/settings-preview.svg
+?? docs/index.html
+?? docs/styles.css
+?? git_status_output.txt
