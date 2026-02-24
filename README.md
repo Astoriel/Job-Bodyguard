@@ -43,8 +43,8 @@
 
 1. Clone the repository to your local secure terminal.
    ```bash
-   git clone https://github.com/Astoriel/OyVitalikVeredator.git
-   cd "OyVitalikVeredator"
+   git clone https://github.com/Astoriel/Job-Bodyguard.git
+   cd "Job-Bodyguard"
    ```
 2. Install the required armaments (dependencies).
    ```bash
