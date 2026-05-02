@@ -7,6 +7,7 @@ dist
 .next
 .turbo
 out
+*.tsbuildinfo
 
 # Environment
 .env
@@ -25,6 +26,11 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+git_status_output.txt
+git_status_utf8.txt
+
+# Local repository surgery scripts
+create_fake_history.ps1
 
 # Testing
 coverage

@@ -3,8 +3,8 @@
   <h1>Job Bodyguard</h1>
   <p><em>Your intelligent companion for navigating the job application process.</em></p>
 
-  <a href="https://chrome.google.com/webstore">
-    <img src="https://img.shields.io/badge/Chrome-Extension-orange?style=for-the-badge&logo=googlechrome" alt="Chrome Extension"/>
+  <a href="STATUS.md">
+    <img src="https://img.shields.io/badge/status-maintenance%20mode-orange?style=for-the-badge" alt="Maintenance mode"/>
   </a>
   <a href="https://reactjs.org/">
     <img src="https://img.shields.io/badge/React-18.x-blue?style=for-the-badge&logo=react" alt="React 18"/>
@@ -15,6 +15,10 @@
 </div>
 
 ---
+
+## Project status
+
+Maintenance mode. Snapshot date: 2026-02-20. The extension code is open for inspection and forks, but active Chrome Web Store availability is not claimed. See [STATUS.md](STATUS.md) and [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md).
 
 **Job Bodyguard** is a Chrome Extension designed to intelligently track, analyze, and guard your job applications. It analyzes job descriptions directly from standard job boards, providing valuable insights into potential red flags, missing skill requirements, and salary estimations.
 
